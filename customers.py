@@ -38,3 +38,60 @@ print(customer)
 
 del customer["email"]
 print(customer)
+
+# Exercise 3: Safe lookup
+
+print(customer.get("email", "no email on file"))
+
+try:
+    print(customer["email"])
+except KeyError:
+    print("KeyError: email does not exist in the dictionary.")
+    # Exercise 4: Iterate
+
+for key, value in customer.items():
+    print(f"{key}: {value}")
+
+# Without .items(), the loop only gives us the keys.
+# With .items(), we get both the key and its value.
+
+for key in customer:
+    print(key)
+
+# Exercise 5: Lookup table
+
+tier_discounts = {
+    "bronze": 0,
+    "silver": 0.05,
+    "gold": 0.10,
+    "platinum": 0.15
+}
+
+discount_rate = tier_discounts.get(customer["tier"], 0)
+purchase_price = 200
+discount_amount = purchase_price * discount_rate
+final_price = purchase_price - discount_amount
+
+print(f"Tier: {customer['tier']}")
+print(f"Discount rate: {discount_rate:.0%}")
+print(f"Final price: ${final_price:.2f}")
+
+# Exercise 6: List of dicts
+
+customers = [
+    {"name": "Alice", "tier": "platinum"},
+    {"name": "Bob", "tier": "gold"},
+    {"name": "Charlie", "tier": "silver"}
+]
+
+purchase_price = 300
+
+for customer in customers:
+    discount_rate = tier_discounts.get(customer["tier"], 0)
+    discount_amount = purchase_price * discount_rate
+
+    print(
+        f"{customer['name']} | "
+        f"{customer['tier']} | "
+        f"Discount: ${discount_amount:.2f}"
+    )
